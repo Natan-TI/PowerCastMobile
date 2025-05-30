@@ -1,7 +1,9 @@
+import { Event } from './index';  
+
 export type RootStackParamList = {
   Panorama: undefined;
   Locations: undefined;
-  Duration: undefined;
-  Damages: undefined;
-  Recommendations: undefined;
+  Duration: { event: Event };         
+  Damages:   { event: Event };
+  Recommendations: { event: Event };
 };
