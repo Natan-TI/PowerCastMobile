@@ -4,25 +4,38 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { saveEvent } from '../services/storage';
 import { Event } from '../types';
+import { getBairroFromCep } from '@services/cep';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Recommendations'>;
 
 export default function RecommendationsScreen({ navigation, route }: Props) {
   const { event } = route.params as { event: Event };
 
-  const handleFinish = async () => {
-    try {
-      await saveEvent(event);
-      alert('Evento salvo com sucesso!');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Panorama' }],
-      });
-    } catch (err) {
-      alert('Falha ao salvar o evento. Tente novamente.');
-      console.error('saveEvent error:', err);
+ const handleFinish = async () => {
+  try {
+    let localFinal = event.local;
+
+    // Tenta buscar bairro se user tiver digitado um CEP
+    const possivelBairro = await getBairroFromCep(event.local);
+    if (possivelBairro) {
+      localFinal = possivelBairro; 
     }
-  };
+
+    // Cria um novo objeto para persistir, substituindo local por localFinal
+    const eventParaSalvar = { ...event, local: localFinal };
+    await saveEvent(eventParaSalvar);
+
+    // Volta ao Panorama
+    alert('Evento salvo com sucesso!');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Panorama' }],
+    });
+  } catch (err) {
+    alert('Falha ao salvar o evento. Tente novamente.');
+    console.error(err);
+  }
+};
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

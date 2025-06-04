@@ -16,3 +16,5 @@ export async function saveEvent(ev: Event): Promise<void> {
 export async function clearEvents(): Promise<void> {
     await AsyncStorage.removeItem(STORAGE_KEY);
 }
+
+export { Event };

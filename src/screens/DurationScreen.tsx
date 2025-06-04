@@ -9,7 +9,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Duration'>;
 export default function DurationScreen({ navigation, route }: Props) {
   // Recebe o event parcial de LocationsScreen
   const { event } = route.params;
-  const [tempo, setTempo] = useState<string>(String(event.tempo));
+  const [tempo, setTempo] = useState<string>('');
 
   const handleNext = () => {
     const num = parseFloat(tempo.replace(',', '.'));
