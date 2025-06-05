@@ -6,4 +6,6 @@ export type RootStackParamList = {
   Duration: { event: Event };         
   Damages:   { event: Event };
   Recommendations: { event: Event };
+  EventDetail: { event: Event };
+  EventEdit: { event: Event };
 };

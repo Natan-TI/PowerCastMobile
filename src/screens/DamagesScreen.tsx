@@ -1,8 +1,12 @@
+// src/screens/DamagesScreen.tsx
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { Button } from 'react-native';
+import styled from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { RootStackParamList } from '../types/navigation';
 import { Event } from '../types';
+import PurpleButton from '@components/PurpleButton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Damages'>;
 
@@ -19,29 +23,37 @@ export default function DamagesScreen({ navigation, route }: Props) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Descreva os prejuízos</Text>
-      <TextInput
-        style={styles.input}
+    <Container>
+      <Label>Descreva os prejuízos</Label>
+      <Input
         placeholder="Ex: residências alagadas, comércios fechados..."
         value={prejuizos}
         onChangeText={setPrejuizos}
         multiline
       />
-      <Button title="Próximo" onPress={handleNext} />
-    </View>
+      <PurpleButton title="Próximo" onPress={handleNext} />
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, justifyContent: 'center' },
-  label: { fontSize: 16, marginBottom: 8 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
-    padding: 8,
-    height: 100,
-    marginBottom: 16,
-  },
-});
+// === styled-components/native ===
+
+const Container = styled.View`
+  flex: 1;
+  padding: 16px;
+  justify-content: center;
+`;
+
+const Label = styled.Text`
+  font-size: 16px;
+  margin-bottom: 8px;
+`;
+
+const Input = styled.TextInput`
+  border-width: 1px;
+  border-color: #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  height: 100px;
+  margin-bottom: 16px;
+`;

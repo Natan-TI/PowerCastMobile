@@ -9,6 +9,8 @@ import DamagesScreen from './src/screens/DamagesScreen';
 import RecommendationsScreen from './src/screens/RecommendationsScreen';
 
 import { RootStackParamList } from './src/types/navigation';
+import EventDetailScreen from '@screens/EventDetailScreen';
+import EventEditScreen from '@screens/EventEditScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -40,6 +42,16 @@ export default function App() {
           name="Recommendations"
           component={RecommendationsScreen}
           options={{ title: 'Recomendações' }}
+        />
+        <Stack.Screen
+          name="EventDetail"
+          component={EventDetailScreen}
+          options={{ title: 'Detalhes do Evento' }}
+        />
+        <Stack.Screen
+          name="EventEdit"
+          component={EventEditScreen}
+          options={{ title: 'Detalhes do Evento' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

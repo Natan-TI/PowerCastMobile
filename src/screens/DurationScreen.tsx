@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { Button } from 'react-native';
+import styled from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { RootStackParamList } from '../types/navigation';
 import { Event } from '../types';
+import PurpleButton from '@components/PurpleButton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Duration'>;
 
@@ -22,28 +25,38 @@ export default function DurationScreen({ navigation, route }: Props) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Tempo de interrupção (h)</Text>
-      <TextInput
-        style={styles.input}
+    <Container>
+      <Label>Tempo de interrupção (h)</Label>
+
+      <Input
         keyboardType="numeric"
         placeholder="Ex: 2.5"
         value={tempo}
         onChangeText={setTempo}
       />
-      <Button title="Próximo" onPress={handleNext} />
-    </View>
+
+      <PurpleButton title="Próximo" onPress={handleNext} />
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, justifyContent: 'center' },
-  label: { fontSize: 16, marginBottom: 8 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
-    padding: 8,
-    marginBottom: 16,
-  },
-});
+// === styled-components/native ===
+
+const Container = styled.View`
+  flex: 1;
+  padding: 16px;
+  justify-content: center;
+`;
+
+const Label = styled.Text`
+  font-size: 16px;
+  margin-bottom: 8px;
+`;
+
+const Input = styled.TextInput`
+  border-width: 1px;
+  border-color: #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 16px;
+`;
